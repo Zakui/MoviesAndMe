@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native'
+import moment from 'moment'
 import { getImageFromApi } from '../API/TMDBApi'
 import FadeIn from '../Animations/FadeIn'
 
@@ -40,7 +41,7 @@ class FilmItem extends React.Component {
               <Text style={styles.description_text} numberOfLines={6}>{film.overview}</Text>
             </View>
             <View style={styles.date_container}>
-              <Text style={styles.date_text}>Sorti le 13/12/2017</Text>
+              <Text style={styles.date_text}>Sorti le ${moment(new Date(film.release_date)).format('DD/MM/YYYY')}</Text>
             </View>
           </View>
         </TouchableOpacity>

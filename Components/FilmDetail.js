@@ -145,12 +145,29 @@ class FilmDetail extends React.Component {
       )
     }
   }
+  _toggleViewFilm() {
+    this.props.dispatch({ type: "TOGGLE_FILM_VU", value: this.state.film })
+  }
+
+  _displayViewButton = () => {
+    const { film } = this.state
+    if (film != undefined) {
+      return (
+        <Button title={
+          this.props.mesFilmsVu.findIndex(item => item.id === film.id) === -1?
+            'Marquer comme vu':
+            'Non vu'
+          } onPress={() => this._toggleViewFilm()}/>
+      )
+    }
+  }
 
   render() {
     return (
       <View style={styles.main_container}>
         {this._displayLoading()}
         {this._displayFilm()}
+        {this._displayViewButton()}
         {this._displayFloatingActionButton()}
       </View>
     )
@@ -213,7 +230,7 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     right: 30,
-    bottom: 30,
+    bottom: 35,
     borderRadius: 30,
     backgroundColor: '#e91e63',
     justifyContent: 'center',
@@ -230,7 +247,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
   return {
-    favoritesFilm: state.toggleFavorite.favoritesFilm
+    favoritesFilm: state.toggleFavorite.favoritesFilm,
+    mesFilmsVu: state.toggleFilmsVu.mesFilmsVu
   }
 }
 
